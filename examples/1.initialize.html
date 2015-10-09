@@ -6,7 +6,8 @@
   <script type="text/javascript" src="../angular.keyvalue.js"></script>
 </head>
 <body ng-controller="keyValueController">
-  <select ng-options="item.label for item in items track by item.value">
+  <span>You are logged on {{items.language.label}}</span>
+  <select ng-model="items.selectedMember" ng-init="items.selectedMember = items.member[0]" ng-options="member.label for member in items.member track by member.value">
   </select>
 
   <script type="text/javascript">
@@ -17,29 +18,45 @@
   function keyValueController ($scope, AKV) {
     var items = {
       language: {
-        id: 0,
-        value: "ko_KR",
-        zip: {
-          zip1: '010',
-          zip2: '111'
+          id: 0,
+          value: "ko_KR"
+      },
+      member: [
+        {
+          id: 0,
+          name: "KIM"
+        },
+        {
+          id: 1,
+          name: "LEE"
+        },
+        {
+          id: 2,
+          name: "PARK"
         }
-      }
+      ]
     };
 
     var setting = {
       language: {
         id: "value",
         value: "label",
-        zip: {
-          zip1: 'post1',
-          zip2: 'post2'
-        }
-      }
+      },
+      member: [{
+        id: "value",
+        name: "label"
+      },
+      {
+        id: "value",
+        name: "label"
+      },
+      {
+        id: "value",
+        name: "label"
+      }]
     };
     AKV.init(items, setting);
-    console.log(items);
     $scope.items = items;
-    //console.log($scope.items);
   }
   </script>
 </body>

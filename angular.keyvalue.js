@@ -3,11 +3,17 @@ angular
 .factory('AKV', AKV);
 
 function AKV ( ) {
+  /**
+   * @param {object} data
+   * @param {object} setting
+   *
+   */
   function init ( data, setting ) {
     setKeyValue(data, setting);
 
+
+    // recursive function is into all child data.
     function setKeyValue ( data, setting ) {
-      // var cloneData = angular.copy(data);
       var cloneData = {};
       for (var property in setting ) {
         if (setting.hasOwnProperty(property)) {
@@ -16,13 +22,13 @@ function AKV ( ) {
           }
           else {
             cloneData[setting[property]] = data[property];
-            //renameKeyValue(data, property, setting[property], cloneData);
           }
         }
       }
       renameKeyValues(data, cloneData);
     }// setKeyValue
 
+    // change key name of the object.
     function renameKeyValues ( originalData, newData ) {
       for (var property in newData) {
         originalData[property] = newData[property];
@@ -33,17 +39,6 @@ function AKV ( ) {
         }
       }
     }// renameKeyValues
-
-    function renameKeyValue ( obj, oldName, newName ) {
-      if (obj[oldName] == obj[newName]) {
-        return obj;
-      }
-
-      if (obj.hasOwnProperty(oldName)) {
-        obj[newName] = obj[oldName];
-        delete obj[oldName];
-      }
-    }// renameKeyValue
   }// init
 
   return {
