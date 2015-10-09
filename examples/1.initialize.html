@@ -1,0 +1,46 @@
+<!DOCTYPE>
+<html ng-app="app">
+<head>
+  <title>1.Initialize</title>
+  <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="../angular.keyvalue.js"></script>
+</head>
+<body ng-controller="keyValueController">
+  <select ng-options="item.label for item in items track by item.value">
+  </select>
+
+  <script type="text/javascript">
+  angular
+  .module('app', ['AKVModule'])
+  .controller('keyValueController', keyValueController);
+  keyValueController.$inject = ['$scope', 'AKV'];
+  function keyValueController ($scope, AKV) {
+    var items = {
+      language: {
+        id: 0,
+        value: "ko_KR",
+        zip: {
+          zip1: '010',
+          zip2: '111'
+        }
+      }
+    };
+
+    var setting = {
+      language: {
+        id: "value",
+        value: "label",
+        zip: {
+          zip1: 'post1',
+          zip2: 'post2'
+        }
+      }
+    };
+    AKV.init(items, setting);
+    console.log(items);
+    $scope.items = items;
+    //console.log($scope.items);
+  }
+  </script>
+</body>
+</html>
